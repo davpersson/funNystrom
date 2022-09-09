@@ -12,4 +12,4 @@ Scripts to reproduce figures in [1].
 
 ---------------------------------------------------------------------
 ### Reference
-[1] D. Persson and D. Kressner. "Randomized low-rank approximationof monotone matrix functions", 2022.
+[1] D. Persson and D. Kressner. "Randomized low-rank approximation of monotone matrix functions", 2022.
