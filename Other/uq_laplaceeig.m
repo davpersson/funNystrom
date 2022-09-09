@@ -1,5 +1,7 @@
 function H0 = uq_laplaceeig(kappa,sigma,lambda,T_list)
 
+%Function to create A_pde
+
 N = 40;
 
 h = 1/N;

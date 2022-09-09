@@ -1,4 +1,4 @@
-function low_rank_test(A,f,fscalar,repeats,rank_list,filename)
+function low_rank_test(U,S,fscalar,repeats,rank_list,filename)
 
 disp(filename)
 
@@ -11,12 +11,11 @@ trace_optimal = zeros(length(rank_list),1);
 frobenius_optimal = zeros(length(rank_list),1);
 
 %Compute important quantities
-[U,S,~] = svd(A);
 feigvals = fscalar(diag(S));
 fA = U*diag(feigvals)*U';
-Afun = @(X) A*X;
+Afun = @(X) (U*(S*(U'*X)));
 fAfun = @(X) fA*X;
-matrix_size = size(A,1);
+matrix_size = size(U,1);
 trfA = sum(feigvals);
 frobfA = norm(fA,'fro');
 
@@ -25,31 +24,32 @@ outer_iteration = 0;
 for r = rank_list
     
     outer_iteration = outer_iteration + 1;
+    r
     
     trace_optimal(outer_iteration) = sum(feigvals((r+1):end));
     frobenius_optimal(outer_iteration) = norm(feigvals((r+1):end));
     
     for repetition = 1:repeats
         
-        %NystromFun q = 1
+        %funNystrom q = 1
         [U,S] = nystrom(matrix_size,Afun,r,1);
         fS = diag(fscalar(diag(S)));
         trace_error(outer_iteration,repetition,1) = trfA - trace(fS);
         frobenius_error(outer_iteration,repetition,1) = norm(fA-U*fS*U','fro');
         
-        %NystromFun q = 2
+        %funNystrom q = 2
         [U,S] = nystrom(matrix_size,Afun,r,2);
         fS = diag(fscalar(diag(S)));
         trace_error(outer_iteration,repetition,2) = trfA - trace(fS);
         frobenius_error(outer_iteration,repetition,2) = norm(fA-U*fS*U','fro');
         
         %Nystrom q = 1
-        [U,S] = nystrom2(matrix_size,fAfun,r,1);
+        [U,S] = nystrom(matrix_size,fAfun,r,1);
         trace_error_exact(outer_iteration,repetition,1) = trfA - trace(S);
         frobenius_error_exact(outer_iteration,repetition,1) = norm(fA-U*S*U','fro');
         
         %Nystrom q = 1
-        [U,S] = nystrom2(matrix_size,fAfun,r,2);
+        [U,S] = nystrom(matrix_size,fAfun,r,2);
         trace_error_exact(outer_iteration,repetition,2) = trfA - trace(S);
         frobenius_error_exact(outer_iteration,repetition,2) = norm(fA-U*S*U','fro');
         

@@ -1,5 +1,7 @@
 function A = kernel(points,type,parameter_cell)
 
+%Function to create kernel matrices
+
 matrix_size = length(points(1,:));
 A = zeros(matrix_size,matrix_size);
 

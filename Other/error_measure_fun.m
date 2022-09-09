@@ -1,5 +1,7 @@
 function err = error_measure_fun(A,B,error_measure)
 
+%Computes ||A-B|| in a norm specified by error_measure
+
 if strcmp(error_measure,'nuclear_norm')
     
     %Requires A >= B

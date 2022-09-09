@@ -1,5 +1,7 @@
 function t = nystrompp(matrix_size,Afun,m1,m2)
 
+%Implementation of Nystrom++
+
 %Low rank approximation phase
 [U,S] = nystrom(matrix_size,Afun,m1,1);
 t1 = trace(S);
