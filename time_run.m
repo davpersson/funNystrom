@@ -22,8 +22,8 @@ fscalar = @(x) sqrt(x);
 filename = 'results/comptimes';
 
 %Specify parameters
-phat = 10;
-rhat = 10;
+phat = 21;
+rhat = 14;
     
 %Allocate space to save results
 N_list = 100:100:1000;
