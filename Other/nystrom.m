@@ -33,7 +33,7 @@ Y = Afun(Omega);
 
 %Regularizaton
 [V,D,~] = svd(Omega'*Y,'econ');
-D(D < 5e-16) = 0;
+D(D < 5e-16*D(1,1)) = 0;
 B = Y*(V*pinv(diag(sqrt(diag(D))))*V');
 [U,Shat,~] = svd(B,'econ');
 S = Shat^2;
